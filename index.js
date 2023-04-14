@@ -34,6 +34,20 @@ app.get('/', (req, res)=>{
     })
 })
 
+//visualizando apenas um regitro na API
+//listando na API
+app.get('/artigos/:id', (req, res)=>{
+    const artigo = Artigo.findOne({_id: req.params.id})
+    .then((artigo)=>{
+        return res.json(artigo)
+    }).catch((error)=>{
+        return res.status(400).json({
+            error: true,
+            message: 'Error: erro na consulta do artigo no banco de dados ' + error
+        })
+    })
+})
+
 // cadastrando na API
 app.post('/artigo', (req, res)=>{
     const artigo = Artigo.create(req.body)
